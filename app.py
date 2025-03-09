@@ -22,7 +22,7 @@ def generate_response_stream(message, chat_history):
 
     # 创建流式生成请求
     response = ollama.chat(
-        model='qwq',  # Ollama 模型名称
+        model='qwq:32b-fp16',  # Ollama 模型名称
         messages=messages,
         stream=True,
         options={
@@ -51,10 +51,10 @@ chat_interface = gr.ChatInterface(
 if __name__ == "__main__":
     # 检查模型是否存在，否则下载
     try:
-        ollama.show('qwq')
+        ollama.show('qwq:32b-fp16')
     except ollama.ResponseError:
         print("正在下载模型...")
-        ollama.pull('qwq')
+        ollama.pull('qwq:32b-fp16')
 
     # 启动 Gradio 应用
     chat_interface.launch(server_name="0.0.0.0", server_port=7861)
